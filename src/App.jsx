@@ -4,7 +4,7 @@ import Dashboard from "./Dashboard";
 import Scan from "./Scan";
 import Values from "./Values";
 import SpinnerComponent from "./Spinner";
-
+import ErrorComponent from "./Error";
 
 function App() {
     let [scans, setScans] = useState([]);
@@ -17,7 +17,11 @@ function App() {
                 setScans(data.data);
                 setLoading(false);
             })
-            .catch((err) => console.log(err));
+            .catch((err) => {
+                console.log(err);
+                setLoading(true);
+
+            });
     }, []);
 
     if (isLoading) {
@@ -32,7 +36,7 @@ function App() {
                 path="/scan/:scan_id/criteria/:crit_id/var/:var_id"
                 element={<Values scans={scans} />}
             />
-            <Route path="*" element={<h2>Not found</h2>} />
+            <Route path="*" element={<ErrorComponent />} />
         </Routes>
     );
 }
