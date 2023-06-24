@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams, Link, useNavigate } from "react-router-dom";
 import {
     Center,
     Flex,
@@ -9,7 +9,9 @@ import {
     CardBody,
     Heading,
     Badge,
+    Button,
     VStack,
+    HStack,
 } from "@chakra-ui/react";
 
 function makeCriteriaTextFromVariable(criteria, idx, scan) {
@@ -36,6 +38,7 @@ function makeCriteriaTextFromVariable(criteria, idx, scan) {
 }
 
 function Scan({ scans }) {
+    let navigate = useNavigate();
     let { id } = useParams();
     let scan = scans.filter((scan) => {
         return scan.id === Number(id);
@@ -86,30 +89,50 @@ function Scan({ scans }) {
 
     return (
         <Center height="100vh" width="100vw">
-            <Flex
-                justifyContent="center"
-                alignItems="start"
-                boxShadow="2xl"
-                minW={{ base: "60%", md: "40%", sm: "60%" }}
-                minH={{ base: "50%", md: "50%", sm: "60%" }}
-            >
-                <VStack width={"100%"}>
-                    <Card
-                        width="100%"
-                        borderBottom="2px"
-                        borderBottomColor="gray.300"
-                        backgroundColor={"purple.500"}
+            <VStack width={"100%"}>
+                <Flex
+                    justifyContent="center"
+                    alignItems="start"
+                    boxShadow="2xl"
+                    minW={{ base: "60%", md: "40%", sm: "60%" }}
+                    minH={{ base: "50%", md: "50%", sm: "60%" }}
+                >
+                    <VStack width={"100%"}>
+                        <Card
+                            width="100%"
+                            borderBottom="2px"
+                            borderBottomColor="gray.300"
+                            backgroundColor={"purple.500"}
+                        >
+                            <CardBody>
+                                <Heading size={{ base: "sm", md: "md" }}>
+                                    {scan.name}
+                                </Heading>
+                                <Badge colorScheme={scan.color}>
+                                    {scan.tag}
+                                </Badge>
+                            </CardBody>
+                        </Card>
+                        <List width="100%">{criteriaList}</List>
+                    </VStack>
+                </Flex>
+                <HStack marginTop={"2rem"} justify={"space-between"}>
+                    <Button
+                        colorScheme="purple"
+                        variant="outline"
+                        onClick={() => navigate(-1)}
                     >
-                        <CardBody>
-                            <Heading size={{ base: "sm", md: "md" }}>
-                                {scan.name}
-                            </Heading>
-                            <Badge colorScheme={scan.color}>{scan.tag}</Badge>
-                        </CardBody>
-                    </Card>
-                    <List width="100%">{criteriaList}</List>
-                </VStack>
-            </Flex>
+                        Backward
+                    </Button>
+                    <Button
+                        colorScheme="purple"
+                        variant="outline"
+                        onClick={() => navigate(1)}
+                    >
+                        Forward
+                    </Button>
+                </HStack>
+            </VStack>
         </Center>
     );
 }

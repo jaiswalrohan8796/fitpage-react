@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
     Center,
     Flex,
@@ -9,9 +9,13 @@ import {
     Card,
     CardBody,
     Heading,
+    HStack,
+    Button,
+    VStack,
 } from "@chakra-ui/react";
 
 function Dashboard({ scans }) {
+    let navigate = useNavigate();
     let scanList = scans.map((scan) => {
         return (
             <ListItem key={scan.id}>
@@ -35,15 +39,33 @@ function Dashboard({ scans }) {
     });
     return (
         <Center height="100vh" width="100vw">
-            <Flex
-                justifyContent="center"
-                alignItems="start"
-                boxShadow="2xl"
-                minW={{ base: "60%", md: "40%", sm: "60%" }}
-                minH={{ base: "50%", md: "50%", sm: "60%" }}
-            >
-                <List width="100%">{scanList}</List>
-            </Flex>
+            <VStack width={"100%"}>
+                <Flex
+                    justifyContent="center"
+                    alignItems="start"
+                    boxShadow="2xl"
+                    minW={{ base: "60%", md: "40%", sm: "60%" }}
+                    minH={{ base: "50%", md: "50%", sm: "60%" }}
+                >
+                    <List width="100%">{scanList}</List>
+                </Flex>
+                <HStack marginTop={"2rem"} justify={"space-between"}>
+                    <Button
+                        colorScheme="purple"
+                        variant="outline"
+                        onClick={() => navigate(-1)}
+                    >
+                        Exit
+                    </Button>
+                    <Button
+                        colorScheme="purple"
+                        variant="outline"
+                        onClick={() => navigate(1)}
+                    >
+                        Forward
+                    </Button>
+                </HStack>
+            </VStack>
         </Center>
     );
 }

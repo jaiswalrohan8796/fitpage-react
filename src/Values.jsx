@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import {
     Center,
     Flex,
@@ -13,7 +13,7 @@ import {
     Input,
     Heading,
     Text,
-    useStatStyles,
+    Button,
 } from "@chakra-ui/react";
 
 const capitalizeFirstLetter = function (string) {
@@ -21,6 +21,7 @@ const capitalizeFirstLetter = function (string) {
 };
 
 function Values({ scans }) {
+    let navigate = useNavigate();
     const { scan_id, crit_id, var_id } = useParams();
     let scan = scans.filter((scan) => {
         return scan.id === Number(scan_id);
@@ -84,15 +85,33 @@ function Values({ scans }) {
 
     return (
         <Center height="100vh" width="100vw">
-            <Flex
-                justifyContent="center"
-                alignItems="start"
-                boxShadow="2xl"
-                minW={{ base: "60%", md: "40%", sm: "60%" }}
-                minH={{ base: "50%", md: "50%", sm: "60%" }}
-            >
-                {renderElement}
-            </Flex>
+            <VStack width={"100%"}>
+                <Flex
+                    justifyContent="center"
+                    alignItems="start"
+                    boxShadow="2xl"
+                    minW={{ base: "60%", md: "40%", sm: "60%" }}
+                    minH={{ base: "50%", md: "50%", sm: "60%" }}
+                >
+                    {renderElement}
+                </Flex>
+                <HStack marginTop={"2rem"} justify={"space-between"}>
+                    <Button
+                        colorScheme="purple"
+                        variant="outline"
+                        onClick={() => navigate(-1)}
+                    >
+                        Backward
+                    </Button>
+                    <Button
+                        colorScheme="purple"
+                        variant="outline"
+                        onClick={() => navigate(1)}
+                    >
+                        Forward
+                    </Button>
+                </HStack>
+            </VStack>
         </Center>
     );
 }
