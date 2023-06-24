@@ -5,7 +5,6 @@ import Scan from "./Scan";
 import Values from "./Values";
 import SpinnerComponent from "./Spinner";
 
-import data from "../data.json";
 
 function App() {
     let [scans, setScans] = useState([]);
