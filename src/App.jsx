@@ -31,10 +31,10 @@ function App() {
     return (
         <Routes>
             <Route path="/" element={<Dashboard scans={scans} />} />
-            <Route path="/scan/:id" element={<Scan scans={scans} />} />
+            <Route path="/scan/:scan_id" element={<Scan scans={scans} />} />
             <Route
-                path="/scan/:scan_id/criteria/:crit_id/var/:var_id"
-                element={<Values scans={scans} />}
+                path="/scan/:scan_id/:crit_id/:var_id"
+                element={<Values />}
             />
             <Route path="*" element={<ErrorComponent />} />
         </Routes>

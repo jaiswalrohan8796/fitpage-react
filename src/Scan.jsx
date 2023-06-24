@@ -28,7 +28,7 @@ function makeCriteriaTextFromVariable(criteria, idx, scan) {
         };
         criteria.text = criteria.text.replace(
             variable_key,
-            `<a href="/scan/${scan.id}/criteria/${idx}/var/${variable_key.slice(
+            `<a href="/scan/${scan.id}/${idx}/${variable_key.slice(
                 1,
                 2
             )}"   style="color:blue"}>${variable_value}</a>`
@@ -39,9 +39,9 @@ function makeCriteriaTextFromVariable(criteria, idx, scan) {
 
 function Scan({ scans }) {
     let navigate = useNavigate();
-    let { id } = useParams();
+    let { scan_id } = useParams();
     let scan = scans.filter((scan) => {
-        return scan.id === Number(id);
+        return scan.id === Number(scan_id);
     })[0];
     let criteriaList = scan.criteria.map((criteria, idx) => {
         let criteriaText = criteria.text;

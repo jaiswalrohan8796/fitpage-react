@@ -1,5 +1,6 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+import SpinnerComponent from "./Spinner";
 import {
     Center,
     Flex,
@@ -20,13 +21,32 @@ const capitalizeFirstLetter = function (string) {
     return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-function Values({ scans }) {
+function Values() {
     let navigate = useNavigate();
     const { scan_id, crit_id, var_id } = useParams();
+    let [scans, setScans] = useState([]);
+    let [isLoading, setLoading] = useState(true);
+    const VITE_BACKEND_URL = import.meta.env.VITE_BACKEND_URL;
+    useEffect(() => {
+        fetch(VITE_BACKEND_URL)
+            .then((response) => response.json())
+            .then((data) => {
+                setScans(data.data);
+                setLoading(false);
+            })
+            .catch((err) => {
+                console.log(err);
+                setLoading(true);
+            });
+    }, []);
+    if (isLoading) {
+        return <SpinnerComponent />;
+    }
     let scan = scans.filter((scan) => {
         return scan.id === Number(scan_id);
     })[0];
     let var_key = `$${var_id}`;
+    console.log(var_key);
     let variable = scan.criteria[Number(crit_id)].variable[var_key];
     let renderElement = null;
     if (variable.type === "value") {
