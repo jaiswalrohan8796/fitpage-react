@@ -39,13 +39,13 @@ function Dashboard({ scans }) {
     });
     return (
         <Center height="100vh" width="100vw">
-            <VStack width={"100%"}>
+            <VStack>
                 <Flex
                     justifyContent="center"
                     alignItems="start"
                     boxShadow="2xl"
-                    minW={{ base: "60%", md: "40%", sm: "60%" }}
-                    minH={{ base: "50%", md: "50%", sm: "60%" }}
+                    width={"60vw"}
+                    height={"60vh"}
                 >
                     <List width="100%">{scanList}</List>
                 </Flex>
