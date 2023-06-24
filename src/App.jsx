@@ -20,7 +20,6 @@ function App() {
             .catch((err) => {
                 console.log(err);
                 setLoading(true);
-
             });
     }, []);
 
@@ -33,7 +32,7 @@ function App() {
             <Route path="/" element={<Dashboard scans={scans} />} />
             <Route path="/scan/:scan_id" element={<Scan scans={scans} />} />
             <Route
-                path="/scan/:scan_id/:crit_id/:var_id"
+                path="/value/:scan_id/:crit_id/:var_id"
                 element={<Values />}
             />
             <Route path="*" element={<ErrorComponent />} />

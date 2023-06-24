@@ -28,7 +28,7 @@ function makeCriteriaTextFromVariable(criteria, idx, scan) {
         };
         criteria.text = criteria.text.replace(
             variable_key,
-            `<a href="/scan/${scan.id}/${idx}/${variable_key.slice(
+            `<a href="/value/${scan.id}/${idx}/${variable_key.slice(
                 1,
                 2
             )}"   style="color:blue"}>${variable_value}</a>`
