@@ -31,7 +31,7 @@ function App() {
             <Route path="/" element={<Dashboard scans={scans} />} />
             <Route path="/scan/:id" element={<Scan scans={scans} />} />
             <Route
-                path="/scan/:scan_id/criteria/:crit_id/variable/:var_id"
+                path="/scan/:scan_id/:crit_id/:var_id"
                 element={<Values scans={scans} />}
             />
             <Route path="*" element={<ErrorComponent />} />
