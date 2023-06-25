@@ -90,8 +90,8 @@ function Values({ scans }) {
                     justifyContent="center"
                     alignItems="start"
                     boxShadow="2xl"
-                    width={"60vw"}
-                    height={"60vh"}
+                    width={{ base: "80vw", md: "60vw" }}
+                    height={{ base: "60vh", md: "60vh" }}
                 >
                     {renderElement}
                 </Flex>
