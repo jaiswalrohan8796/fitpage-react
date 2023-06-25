@@ -1,6 +1,12 @@
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import {
+    SunIcon,
+    MoonIcon,
+    ArrowBackIcon,
+    ArrowForwardIcon,
+} from "@chakra-ui/icons";
+import {
     Center,
     Flex,
     List,
@@ -12,6 +18,8 @@ import {
     Button,
     VStack,
     HStack,
+    useColorMode,
+    useColorModeValue,
 } from "@chakra-ui/react";
 
 function makeCriteriaTextFromVariable(criteria, idx, scan) {
@@ -39,6 +47,7 @@ function makeCriteriaTextFromVariable(criteria, idx, scan) {
 
 function Scan({ scans }) {
     let navigate = useNavigate();
+    const { colorMode, toggleColorMode } = useColorMode();
     let { id } = useParams();
     let scan = scans.filter((scan) => {
         return scan.id === Number(id);
@@ -57,8 +66,8 @@ function Scan({ scans }) {
                     <Card
                         width="100%"
                         borderBottom="2px"
-                        borderBottomColor="gray.300"
-                        _hover={{ backgroundColor: "gray.100" }}
+                        borderBottomColor="purple.200"
+                        _hover={{ backgroundColor: "purple.400" }}
                     >
                         <CardBody>{renderThisString}</CardBody>
                     </Card>
@@ -78,8 +87,8 @@ function Scan({ scans }) {
                 <Card
                     width="100%"
                     borderBottom="2px"
-                    borderBottomColor="gray.300"
-                    _hover={{ backgroundColor: "purple.100" }}
+                    borderBottomColor="purple.200"
+                    _hover={{ backgroundColor: "purple.400" }}
                 >
                     <CardBody>{renderThisString}</CardBody>
                 </Card>
@@ -101,8 +110,8 @@ function Scan({ scans }) {
                         <Card
                             width="100%"
                             borderBottom="2px"
-                            borderBottomColor="gray.300"
-                            backgroundColor={"purple.500"}
+                            borderBottomColor="purple.300"
+                            backgroundColor={"purple.400"}
                         >
                             <CardBody>
                                 <Heading size={{ base: "sm", md: "md" }}>
@@ -117,6 +126,16 @@ function Scan({ scans }) {
                     </VStack>
                 </Flex>
                 <HStack marginTop={"2rem"} justify={"space-between"}>
+                <Button
+                        variant="outline"
+                        colorScheme="purple"
+                        leftIcon={
+                            colorMode == "light" ? <SunIcon /> : <MoonIcon />
+                        }
+                        onClick={toggleColorMode}
+                    >
+                        {colorMode}
+                    </Button>
                     <Button
                         colorScheme="purple"
                         variant="outline"

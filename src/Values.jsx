@@ -1,6 +1,12 @@
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import {
+    SunIcon,
+    MoonIcon,
+    ArrowBackIcon,
+    ArrowForwardIcon,
+} from "@chakra-ui/icons";
+import {
     Center,
     Flex,
     List,
@@ -14,6 +20,8 @@ import {
     Heading,
     Text,
     Button,
+    useColorMode,
+    useColorModeValue,
 } from "@chakra-ui/react";
 
 const capitalizeFirstLetter = function (string) {
@@ -22,6 +30,7 @@ const capitalizeFirstLetter = function (string) {
 
 function Values({ scans }) {
     let navigate = useNavigate();
+    const { colorMode, toggleColorMode } = useColorMode();
     const { scan_id, crit_id, var_id } = useParams();
     let scan = scans.filter((scan) => {
         return scan.id === Number(scan_id);
@@ -36,8 +45,8 @@ function Values({ scans }) {
                     <Card
                         width="100%"
                         borderBottom="1px"
-                        borderBottomColor="gray.300"
-                        _hover={{ backgroundColor: "gray.100" }}
+                        borderBottomColor="purple.200"
+                        _hover={{ backgroundColor: "purple.400" }}
                     >
                         <CardBody>{val}</CardBody>
                     </Card>
@@ -53,8 +62,8 @@ function Values({ scans }) {
                 <Card
                     width="100%"
                     borderBottom="2px"
-                    borderBottomColor="gray.300"
-                    backgroundColor={"purple.500"}
+                    borderBottomColor="purple.200"
+                    backgroundColor={"purple.400"}
                 >
                     <CardBody>
                         <Heading size={{ base: "sm", md: "md" }}>
@@ -96,6 +105,16 @@ function Values({ scans }) {
                     {renderElement}
                 </Flex>
                 <HStack marginTop={"2rem"} justify={"space-between"}>
+                    <Button
+                        variant="outline"
+                        colorScheme="purple"
+                        leftIcon={
+                            colorMode == "light" ? <SunIcon /> : <MoonIcon />
+                        }
+                        onClick={toggleColorMode}
+                    >
+                        {colorMode}
+                    </Button>
                     <Button
                         colorScheme="purple"
                         variant="outline"

@@ -1,6 +1,12 @@
 import React from "react";
 import { Link, useNavigate } from "react-router-dom";
 import {
+    SunIcon,
+    MoonIcon,
+    ArrowBackIcon,
+    ArrowForwardIcon,
+} from "@chakra-ui/icons";
+import {
     Center,
     Flex,
     List,
@@ -12,10 +18,13 @@ import {
     HStack,
     Button,
     VStack,
+    useColorMode,
+    useColorModeValue,
 } from "@chakra-ui/react";
 
 function Dashboard({ scans }) {
     let navigate = useNavigate();
+    const { colorMode, toggleColorMode } = useColorMode();
     let scanList = scans.map((scan) => {
         return (
             <ListItem key={scan.id}>
@@ -23,8 +32,8 @@ function Dashboard({ scans }) {
                     <Card
                         width="100%"
                         borderBottom="2px"
-                        borderBottomColor="gray.300"
-                        _hover={{ backgroundColor: "purple.100" }}
+                        borderBottomColor="purple.200"
+                        _hover={{ backgroundColor: "purple.400" }}
                     >
                         <CardBody>
                             <Heading size={{ base: "sm", md: "md" }}>
@@ -51,6 +60,17 @@ function Dashboard({ scans }) {
                 </Flex>
                 <HStack marginTop={"2rem"} justify={"space-between"}>
                     <Button
+                        variant="outline"
+                        colorScheme="purple"
+                        leftIcon={
+                            colorMode == "light" ? <SunIcon /> : <MoonIcon />
+                        }
+                        onClick={toggleColorMode}
+                    >
+                        {colorMode}
+                    </Button>
+                    <Button
+                        leftIcon={<ArrowBackIcon />}
                         colorScheme="purple"
                         variant="outline"
                         onClick={() => navigate(-1)}
@@ -58,6 +78,7 @@ function Dashboard({ scans }) {
                         Exit
                     </Button>
                     <Button
+                        rightIcon={<ArrowForwardIcon />}
                         colorScheme="purple"
                         variant="outline"
                         onClick={() => navigate(1)}
